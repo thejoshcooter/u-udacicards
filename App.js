@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native'
 import {
   View,
   Text
@@ -7,9 +8,11 @@ import {
 const App = () => {
   return (
     <>
-    <View>
-      <Text>hello world</Text>
-    </View>
+    <NavigationContainer>
+      <View>
+        <Text>hello world</Text>
+      </View>
+    </NavigationContainer>
     </>
   )
 }
