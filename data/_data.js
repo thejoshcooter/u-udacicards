@@ -1,0 +1,73 @@
+let store = {
+    decks: [
+        {
+            id: 0,
+            title: 'Welcome',
+            questions: [
+                {
+                    question: 'This is a question?',
+                    answer: 'This is an answer.'
+                },
+                {
+                    question: 'This is a question?',
+                    answer: 'This is an answer.'
+                }
+            ]
+        }
+    ]
+}
+
+// HELPERS
+
+// TODO
+// getDecks: return all of the decks along with their titles, questions, and answers
+
+export const getDecks = () => {
+    return new Promise((res, rej) => {
+        setTimeout(() => res(store.decks), 1000)
+    })
+}
+
+// TODO
+// getDeck: take in a single `id` argument and return the deck associated with that id
+
+export const getDeck = (id) => {
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            let deck = store.decks.filter(deck => deck.id === id)[0]
+
+            res(deck)
+        }, 1000)
+    })
+}
+
+// TODO
+// saveDeckTitle: take in a single `title` argument and add it to the decks
+// * changing this to a create deck function
+
+export const createDeck = (title) => {
+    return new Promise((res, rej) => {
+        let id = store.decks.length - 1
+        let deck = { id: id, title: title, questions: [] }
+
+        setTimeout(() => {
+            store.decks.push(deck)
+            res(store.decks)
+        }, 1000)
+    })
+}
+
+
+// TODO
+// addCardToDeck: take in two arguments, `title` and `card`, and will add the card to the list of questions for the deck with associated title
+// * changing this up to work based of deck id instead of title
+
+export const addCardToDeck = (id, card) => {
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            store.decks[id] = { ...store.decks[id], questions: [ ...store.decks[id].questions, card ] }
+
+            res(store.decks[id])
+        }, 1000)
+    })
+}
