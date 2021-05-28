@@ -123,3 +123,18 @@ export const addCardToDeck = async ({ id, question, answer }) => {
         return storage.decks
     }
 }
+
+export const deleteDeck = async (id) => {
+    let storage = await AsyncStorage.getItem('store')
+
+    if (storage) {
+        storage = JSON.parse(storage)
+
+        let updatedDecks = storage.decks.filter(deck => deck.id !== id)
+
+        storage = { ...storage, decks: updatedDecks }
+
+        AsyncStorage.setItem('store', JSON.stringify(storage))
+        return storage.decks
+    }
+}

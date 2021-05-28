@@ -25,7 +25,7 @@ const IndividualDeck = ({ route, navigation }) => {
 
                 <TouchableOpacity><Text>Add Card</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Quiz')}><Text>Start Quiz</Text></TouchableOpacity>
-                <TouchableOpacity><Text>Delete Deck</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => API.deleteDeck(route.params.deckId).then((res) => navigation.navigate('Decks', { refresh: true }))}><Text>Delete Deck</Text></TouchableOpacity>
             </Container>
         )}
         </>

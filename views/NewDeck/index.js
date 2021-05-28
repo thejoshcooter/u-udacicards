@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native'
 import * as API from '../../data/_data'
 
-const NewDeck = () => {
+const NewDeck = ({ navigation }) => {
     const [title, setTitle] = React.useState('')
 
     const handleChange = (text) => {
@@ -15,6 +15,7 @@ const NewDeck = () => {
         API.createDeck(title)
         .then(res => {
             console.log(res)
+            navigation.navigate('Decks', { refresh: true })
         })
         .catch(e => console.error(e))
     }

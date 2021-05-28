@@ -4,8 +4,9 @@ import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
 import * as API from '../../data/_data'
 import Deck from '../../components/Deck'
 
-const Decks = ({ navigation }) => {
+const Decks = ({ navigation, route }) => {
     const [decks, setDecks] = React.useState([])
+    console.log('decks route: ', route)
 
     React.useEffect(() => {
         API.getDecks()
@@ -13,7 +14,7 @@ const Decks = ({ navigation }) => {
             setDecks(res)
         })
         .catch(e => console.error(e))
-    }, [])
+    }, [route.params])
     
     return (
         <>
