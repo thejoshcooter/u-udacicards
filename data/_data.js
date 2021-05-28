@@ -35,7 +35,6 @@ export let store = {
 
 // HELPERS
 
-// init AsyncStorage store
 export const initStorage = async () => {
     let storage = await AsyncStorage.getItem('store')
 
@@ -48,7 +47,7 @@ export const initStorage = async () => {
     }
 }
 
-// check AsyncStorage store
+
 export const checkStorage = async () => {
     let storage = await AsyncStorage.getItem('store')
 
@@ -59,7 +58,7 @@ export const checkStorage = async () => {
     }
 }
 
-// clear AsyncStorage store
+
 export const clearStorage = () => {
    AsyncStorage.removeItem('store')
    .then(res => {
@@ -70,7 +69,7 @@ export const clearStorage = () => {
    })
 }
 
-// getDecks: return all of the decks along with their titles, questions, and answers
+
 export const getDecks = async () => {
     let storage = await AsyncStorage.getItem('store')
 
@@ -81,7 +80,7 @@ export const getDecks = async () => {
     }
 }
 
-// getDeck: take in a single `id` argument and return the deck associated with that id
+
 export const getDeck = async (id) => {
     let storage = await AsyncStorage.getItem('store')
 
@@ -92,9 +91,6 @@ export const getDeck = async (id) => {
     }
 }
 
-// TODO
-// saveDeckTitle: take in a single `title` argument and add it to the decks
-// * changing this to a create deck function
 
 export const createDeck = async (title) => {
     let storage = await AsyncStorage.getItem('store')
@@ -110,9 +106,6 @@ export const createDeck = async (title) => {
 }
 
 
-// TODO
-// addCardToDeck: take in two arguments, `title` and `card`, and will add the card to the list of questions for the deck with associated title
-// * changing this up to work based of deck id instead of title
 export const addCardToDeck = async ({ id, question, answer }) => {
     let storage = await AsyncStorage.getItem('store')
 
