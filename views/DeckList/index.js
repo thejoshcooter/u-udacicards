@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import * as API from '../../data/_data'
 
 const DeckList = () => {
-    
     return (
         <>
         <View>

@@ -16,8 +16,14 @@ import * as API from './data/_data'
 const PrimaryStack = createStackNavigator()
 
 const App = () => {
+  
   React.useEffect(() => {
     API.initStorage()
+    API.getDecks()
+    .then(res => {
+      console.log('[get decks res]', res)
+    })
+    .catch(e => console.error(e))
   }, [])
   
   return (

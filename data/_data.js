@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native'
 
-let store = {
+export let store = {
     decks: [
         {
             id: 0,
@@ -64,8 +64,10 @@ export const saveToAsyncStorage = (store) => {
 // getDecks: return all of the decks along with their titles, questions, and answers
 export const getDecks = () => {
     return new Promise((res, rej) => {
-        setTimeout(() => {
-            res(store.decks)
+        setTimeout(async () => {
+            let store = await AsyncStorage.getItem('store')
+            let decks = JSON.parse(store).decks
+            res(decks)
         }, 1000)
     })
 }
