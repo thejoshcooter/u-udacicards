@@ -1,17 +1,36 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native'
+import * as API from '../../data/_data'
 
 const NewDeck = () => {
+    const [title, setTitle] = React.useState('')
+
+    const handleChange = (text) => {
+        setTitle(text)
+        console.log(title)
+    }
+
+    const handleSubmit = () => {
+        API.createDeck(title)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(e => console.error(e))
+    }
+    
     return (
         <>
         <Container>
             <TitleInput 
                 name='title'
                 placeholder='title'
+                value={title.value}
+                onChangeText={(text) => handleChange(text)}
+                defaultValue={title}
             />
 
-            <SubmitButton><Text>Submit</Text></SubmitButton>
+            <SubmitButton onPress={() => handleSubmit()}><Text>Submit</Text></SubmitButton>
         </Container>
         </>
     )
