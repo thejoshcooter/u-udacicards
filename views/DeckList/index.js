@@ -9,6 +9,7 @@ const DeckList = () => {
             <Text>Deck List View</Text>
             <TouchableOpacity onPress={() => API.checkStorage()}><Text>Check Async Storage</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => API.clearStorage()}><Text>Clear Storage</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => API.getDeck(0)}><Text>Get Deck</Text></TouchableOpacity>
         </View>
         </>
     )

@@ -75,9 +75,11 @@ export const getDecks = () => {
 // getDeck: take in a single `id` argument and return the deck associated with that id
 export const getDeck = (id) => {
     return new Promise((res, rej) => {
-        setTimeout(() => {
-            let deck = store.decks.filter(deck => deck.id === id)[0]
-            res(deck)
+        setTimeout(async () => {
+            let store = await AsyncStorage.getItem('store')
+            let decks = JSON.parse(store).decks
+            let targetDeck = decks.filter(deck => deck.id === id)[0]
+            res(targetDeck)
         }, 1000)
     })
 }
