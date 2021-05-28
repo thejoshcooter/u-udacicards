@@ -15,6 +15,20 @@ export let store = {
                     answer: 'This is an answer.'
                 }
             ]
+        },
+        {
+            id: 1,
+            title: 'Demo',
+            questions: [
+                {
+                    question: 'This is a question?',
+                    answer: 'This is an answer.'
+                },
+                {
+                    question: 'This is a question?',
+                    answer: 'This is an answer.'
+                }
+            ]
         }
     ]
 }
@@ -35,78 +49,84 @@ export const initStorage = async () => {
 }
 
 // check AsyncStorage store
-export const checkStorage = () => {
-    AsyncStorage.getItem('store')
-    .then(res => {
-        console.log('[ASYNC STORAGE]', JSON.parse(res))
-    })
-    .catch(e => console.error(e))
+export const checkStorage = async () => {
+    let storage = await AsyncStorage.getItem('store')
+
+    if (storage) {
+        return JSON.parse(storage)
+    } else {
+        return null
+    }
 }
 
 // clear AsyncStorage store
 export const clearStorage = () => {
-    AsyncStorage.clear()
-    .then(res => {
-        console.log('[STORAGE CLEARED]')
-    })
-    .catch(e => console.error(e))
-}
-
-// transfer store to AsyncStorage
-export const saveToAsyncStorage = (store) => {
-    AsyncStorage.setItem('store', store)
-    .then(res => {
-        console.log('[ASYNCSTORAGE UPDATE]', res)
-    })
-    .catch(e => console.error(e))
+   AsyncStorage.removeItem('store')
+   .then(res => {
+       console.log('[STORAGE CLEARED]')
+   })
+   .catch(e => {
+       console.error('error clearing storage: ', e)
+   })
 }
 
 // getDecks: return all of the decks along with their titles, questions, and answers
-export const getDecks = () => {
-    return new Promise((res, rej) => {
-        setTimeout(async () => {
-            let store = await AsyncStorage.getItem('store')
-            let decks = JSON.parse(store).decks
-            res(decks)
-        }, 1000)
-    })
+export const getDecks = async () => {
+    let storage = await AsyncStorage.getItem('store')
+
+    if (storage) {
+        return JSON.parse(storage).decks
+    } else if (!storage) {
+        initStorage()
+    }
 }
 
 // getDeck: take in a single `id` argument and return the deck associated with that id
-export const getDeck = (id) => {
-    return new Promise((res, rej) => {
-        setTimeout(async () => {
-            let store = await AsyncStorage.getItem('store')
-            let decks = JSON.parse(store).decks
-            let targetDeck = decks.filter(deck => deck.id === id)[0]
-            res(targetDeck)
-        }, 1000)
-    })
+export const getDeck = async (id) => {
+    let storage = await AsyncStorage.getItem('store')
+
+    if (storage) {
+        storage = JSON.parse(storage).decks
+        target = storage.filter(deck => deck.id === id)[0]
+        return target
+    }
 }
 
+// TODO
 // saveDeckTitle: take in a single `title` argument and add it to the decks
 // * changing this to a create deck function
-export const createDeck = (title) => {
-    return new Promise((res, rej) => {
-        let id = store.decks.length - 1
-        let deck = { id: id, title: title, questions: [] }
 
-        setTimeout(() => {
-            store.decks.push(deck)
-            res(store.decks)
-        }, 1000)
-    })
+export const createDeck = async (title) => {
+    let storage = await AsyncStorage.getItem('store')
+
+    if (storage) {
+        storage = JSON.parse(storage)
+        let deckId = storage.length
+        let deck = { id: Math.floor(Math.random() * 10000), title: title, questions: [] }
+        storage.decks.push(deck)
+        AsyncStorage.setItem('store', JSON.stringify(storage))
+        return storage
+    }
 }
 
 
+// TODO
 // addCardToDeck: take in two arguments, `title` and `card`, and will add the card to the list of questions for the deck with associated title
 // * changing this up to work based of deck id instead of title
-export const addCardToDeck = (id, card) => {
-    return new Promise((res, rej) => {
-        setTimeout(() => {
-            store.decks[id] = { ...store.decks[id], questions: [ ...store.decks[id].questions, card ] }
+export const addCardToDeck = async ({ id, question, answer }) => {
+    let storage = await AsyncStorage.getItem('store')
 
-            res(store.decks[id])
-        }, 1000)
-    })
+    if (storage) {
+        storage = JSON.parse(storage)
+        let updatedDecks = storage.decks.map(deck => {
+            if (deck.id === id) {
+                return { ...deck, questions: [ ...deck.questions, { question: question, answer: answer } ] }
+            } else {
+                return deck
+            }
+        })
+        storage = { ...storage, decks: updatedDecks }
+        AsyncStorage.setItem('store', JSON.stringify(storage))
+        return storage.decks
+    }
 }

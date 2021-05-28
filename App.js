@@ -21,7 +21,7 @@ const App = () => {
     API.initStorage()
     API.getDecks()
     .then(res => {
-      console.log('[get decks res]', res)
+      console.log('[SERVER RES]', res)
     })
     .catch(e => console.error(e))
   }, [])
