@@ -10,11 +10,16 @@ import IndividualDeck from './views/IndividualDeck'
 import NewDeck from './views/NewDeck'
 import NewQuestion from './views/NewQuestion'
 import Quiz from './views/Quiz'
+import * as API from './data/_data'
 
 // create navigation
 const PrimaryStack = createStackNavigator()
 
 const App = () => {
+  React.useEffect(() => {
+    API.initStorage()
+  }, [])
+  
   return (
     <>
     <NavigationContainer>
