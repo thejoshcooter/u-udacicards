@@ -9,6 +9,7 @@ import * as API from './data/_data'
 import Home from './views/Home'
 import IndividualDeck from './views/IndividualDeck'
 import Quiz from './views/Quiz'
+import NewQuestion from './views/NewQuestion'
 
 // create navigation
 const Stack = createStackNavigator()
@@ -31,6 +32,7 @@ const App = () => {
         <Stack.Screen name='Home' component={Home} />
         <Stack.Screen name='Individual Deck' component={IndividualDeck} />
         <Stack.Screen name='Quiz' component={Quiz} />
+        <Stack.Screen name='Add Question' component={NewQuestion} />
       </Stack.Navigator>
     </NavigationContainer>
     </>
