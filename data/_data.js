@@ -7,11 +7,11 @@ export let store = {
             title: 'Welcome',
             questions: [
                 {
-                    question: 'This is a question?',
+                    question: 'Is this a first question?',
                     answer: 'This is an answer.'
                 },
                 {
-                    question: 'This is a question?',
+                    question: 'Is this a second question?',
                     answer: 'This is an answer.'
                 }
             ]
