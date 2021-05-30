@@ -1,0 +1,5 @@
+export const PURPLE = '#9E04FF'
+export const VIOLET = '#FF00B9'
+export const PINK = '#FF0077'
+export const ORANGE =  '#FF8148'
+export const LIGHTORANGE = '#FFC43F'
