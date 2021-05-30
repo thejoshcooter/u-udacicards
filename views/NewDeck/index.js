@@ -16,7 +16,7 @@ const NewDeck = ({ navigation }) => {
         API.createDeck(title)
         .then(res => {
             console.log(res)
-            navigation.navigate('Decks', { refresh: true })
+            navigation.navigate('Individual Deck', { deckId: res })
         })
         .catch(e => console.error(e))
     }
@@ -32,7 +32,7 @@ const NewDeck = ({ navigation }) => {
                 defaultValue={title}
             />
 
-            <SubmitButton onPress={() => handleSubmit()}><StyledText>Submit</StyledText></SubmitButton>
+            <SubmitButton onPress={() => handleSubmit()}><StyledText>Create Deck</StyledText></SubmitButton>
         </Container>
         </>
     )

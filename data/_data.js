@@ -97,11 +97,12 @@ export const createDeck = async (title) => {
 
     if (storage) {
         storage = JSON.parse(storage)
-        let deckId = storage.length
-        let deck = { id: Math.floor(Math.random() * 10000), title: title, questions: [] }
+        // let deckId = storage.length
+        let deckId = Math.floor(Math.random() * 10000)
+        let deck = { id: deckId, title: title, questions: [] }
         storage.decks.push(deck)
         AsyncStorage.setItem('store', JSON.stringify(storage))
-        return storage
+        return deckId
     }
 }
 
