@@ -19,7 +19,7 @@ const Decks = ({ navigation, route }) => {
     return (
         <>
         <SafeAreaView>
-            {decks && decks.map(deck => (
+            {decks && decks.length !== 0 && decks.map(deck => (
                 <Deck 
                     key={deck.id}
                     id={deck.id}
