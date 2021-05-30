@@ -11,10 +11,10 @@ const Results = ({ route, navigation }) => {
         <Container>
             <ScoreCard>
                 <Stats>
-                    <StyledText>Quiz Results: </StyledText>
-                    <StyledText># questions asked: {route.params.total}</StyledText>
-                    <StyledText># questions correct: {route.params.correct}</StyledText>
-                    <StyledText>% questions correct: {route.params.correct / route.params.total * 100}%</StyledText>
+                    <ResultsTitle>Quiz Results: </ResultsTitle>
+                    <StatText># questions asked:</StatText><ResultText>{route.params.total}</ResultText>
+                    <StatText># questions correct:</StatText><ResultText>{route.params.correct}</ResultText>
+                    <StatText>% questions correct:</StatText><ResultText>{Math.round(route.params.correct / route.params.total * 100)}%</ResultText>
                 </Stats>
                 <Controls>
                     <ControlButton onPress={() => navigation.navigate('Quiz', { refresh: Math.random() * 100000 })}><StyledText>Restart Quiz</StyledText></ControlButton>
@@ -40,11 +40,26 @@ const ScoreCard = styled.View`
     border-radius: 3px;
     justify-content: space-around;
     align-items: center;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
 `
 
 const Stats = styled.View`
     width: 100%;
-    padding: 0 25px;
+    padding-left: 25px;
+`
+
+const ResultsTitle = styled.Text`
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+`
+
+const StatText = styled.Text`
+    color: ${ORANGE};
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
 `
 
 const Controls = styled.View`
@@ -64,10 +79,15 @@ const ControlButton = styled.TouchableOpacity`
     align-items: center;
 `
 
-const StyledText = styled.Text`
+const ResultText = styled.Text`
     color: #fff;
     font-weight: bold;
-    margin: 5px 0;
+    font-size: 16px;
+    margin-top: 10px;
+`
+
+const StyledText = styled.Text`
+    color: #fff;
 `
 
 export default Results

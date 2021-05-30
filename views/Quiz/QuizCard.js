@@ -40,7 +40,7 @@ const Container = styled.View`
 
 const QuestionArea = styled.View`
     width: 100%;
-    min-height: 200px;
+    min-height: 300px;
     justify-content: space-around;
     align-items: center;
     background-color: ${props => props.answer ? `${ORANGE}` : `${PURPLE}`};
