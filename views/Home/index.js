@@ -9,6 +9,7 @@ import Settings from '../Settings'
 const Tab = createBottomTabNavigator()
 
 const Home = () => {
+    
     return (
         <>
         <Tab.Navigator>

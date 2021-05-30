@@ -1,12 +1,22 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { SafeAreaView, View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { SafeAreaView, View, Text, TouchableOpacity, ScrollView, RefreshControl } from 'react-native'
 import * as API from '../../data/_data'
 import Deck from '../../components/Deck'
+import { withRepeat } from 'react-native-reanimated'
+
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout))
+}
 
 const Decks = ({ navigation, route }) => {
     const [decks, setDecks] = React.useState([])
-    console.log('decks route: ', route)
+    const [refreshing, setRefreshing] = React.useState(false)
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true)
+        wait(2000).then(() => setRefreshing(false))
+    })
 
     React.useEffect(() => {
         API.getDecks()
@@ -14,11 +24,11 @@ const Decks = ({ navigation, route }) => {
             setDecks(res)
         })
         .catch(e => console.error(e))
-    }, [route.params])
+    }, [route.params, refreshing])
     
     return (
         <>
-        <ScrollView>
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
             {decks && decks.length !== 0 && decks.map(deck => (
                 <Deck 
                     key={deck.id}
