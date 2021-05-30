@@ -8,7 +8,7 @@ const Deck = ({ id, title, questions, navigation }) => {
         <>
         <Container onPress={() => navigation.navigate('Individual Deck', { deckId: id })}>
             <DeckTitle>{title}</DeckTitle>
-            <StyledText>cards: {questions.length}</StyledText>
+            <StyledText>{questions.length} cards</StyledText>
         </Container>
         </>
     )

@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components/native'
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native'
 import * as API from '../../data/_data'
-import { ORANGE, PURPLE } from '../../utils/colors'
+import { LIGHTORANGE, ORANGE, PURPLE } from '../../utils/colors'
 
 const NewDeck = ({ navigation }) => {
     const [title, setTitle] = React.useState('')
@@ -48,7 +48,7 @@ const TitleInput = styled.TextInput`
     width: 80%;
     height: 50px;
     background-color: transparent;
-    border: 2px solid ${PURPLE};
+    border: 2px solid ${LIGHTORANGE};
     border-radius: 3px;
     padding: 5px;
 `

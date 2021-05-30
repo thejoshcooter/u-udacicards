@@ -4,6 +4,7 @@ import { SafeAreaView, View, Text, ScrollView, TouchableOpacity} from 'react-nat
 import * as API from '../../data/_data'
 import QuizCard from './QuizCard'
 import { NavigationContainer } from '@react-navigation/native'
+import { ORANGE, PURPLE } from '../../utils/colors'
 
 const Quiz = ({ route, navigation }) => {
     const [activeCard, setActiveCard] = React.useState(0)
@@ -70,8 +71,6 @@ const Quiz = ({ route, navigation }) => {
     return (
         <>
         <Container>
-            <Text>quiz view</Text>
-            <Text>deck id: {route.params.deckId}</Text>
             {cards && cards.map((card, index) => {
                 if (activeCard === index) {
                     return (
@@ -89,15 +88,15 @@ const Quiz = ({ route, navigation }) => {
             })}
             <Controls>
                 {activeCard !== 0 && (
-                    <ControlButton onPress={() => goToPrevious()}><Text>Previous</Text></ControlButton>
+                    <ControlButton onPress={() => goToPrevious()}><StyledText>Previous</StyledText></ControlButton>
                 )}
 
                 {activeCard !== cards.length - 1 && (
-                    <ControlButton onPress={() => goToNext()}><Text>Next</Text></ControlButton>
+                    <ControlButton onPress={() => goToNext()}><StyledText>Next</StyledText></ControlButton>
                 )}
 
                 {activeCard === cards.length - 1 && (
-                    <TouchableOpacity onPress={() => generateResults()}><Text>Results</Text></TouchableOpacity>
+                    <ResultButton onPress={() => generateResults()}><StyledText>Results</StyledText></ResultButton>
                 )}
             </Controls>
         </Container>
@@ -120,11 +119,25 @@ const Controls = styled.View`
 const ControlButton = styled.TouchableOpacity`
     width: 100px;
     height: 40px;
-    background-color: transparent;
-    border: 2px solid black;
+    background-color: ${ORANGE};
     justify-content: center;
     align-items: center;
     margin: 5px;
+    border-radius: 3px;
+`
+
+const StyledText = styled.Text`
+    color: #fff;
+`
+
+const ResultButton = styled.TouchableOpacity`
+    width: 100px;
+    height: 40px;
+    background-color: ${PURPLE};
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    border-radius: 3px;
 `
 
 export default Quiz
