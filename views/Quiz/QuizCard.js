@@ -9,10 +9,10 @@ const QuizCard = ({ id, question, answer, answered, correct, setCardAnswer }) =>
     return (
         <>
         <Container>
-            <View>
+            {/* <View>
                 {correct && <Text>You got it correct!</Text>}
                 {correct !== null && !correct && <Text>You got it incorrect.</Text>}
-            </View>
+            </View> */}
 
             <QuestionArea answer={reveal}>
                 {!reveal && <CardText>{question}</CardText>}
@@ -21,8 +21,8 @@ const QuizCard = ({ id, question, answer, answered, correct, setCardAnswer }) =>
             </QuestionArea>
 
             <Controls>
-                    <ControlButton reveal={reveal} correct={true} onPress={() => setCardAnswer(id, true)}><ControlText correct={true}>Correct</ControlText></ControlButton>
-                    <ControlButton reveal={reveal} correct={false} onPress={() => setCardAnswer(id, false)}><ControlText correct={false}>Incorrect</ControlText></ControlButton>
+                    <CorrectButton reveal={reveal} correct={correct} onPress={() => setCardAnswer(id, true)}><CorrectText correct={correct}>Correct</CorrectText></CorrectButton>
+                    <IncorrectButton reveal={reveal} correct={correct} onPress={() => setCardAnswer(id, false)}><IncorrectText correct={correct}>Incorrect</IncorrectText></IncorrectButton>
             </Controls>
         </Container>
         </>
@@ -80,21 +80,51 @@ const Controls = styled.View`
     min-height: 50px;
 `
 
-const ControlButton = styled.TouchableOpacity`
+// const ControlButton = styled.TouchableOpacity`
+//     width: 100px;
+//     height: 40px;
+//     background-color: transparent;
+//     border-radius: 3px;
+//     border: 2px solid ${props => props.correct ? '#11DB00' : '#FF0000'};
+//     margin: 5px;
+//     justify-content: center;
+//     align-items: center;
+//     display: ${props => props.reveal ? 'flex' : 'none'};
+// `
+
+const CorrectButton = styled.TouchableOpacity`
     width: 100px;
     height: 40px;
-    background-color: transparent;
+    background-color: ${props => props.correct ? '#11DB00': 'transparent'};
     border-radius: 3px;
-    border: 2px solid ${props => props.correct ? '#11DB00' : '#FF0000'};
+    border: 2px solid #11DB00;
     margin: 5px;
     justify-content: center;
     align-items: center;
-    display: ${props => props.reveal ? 'flex' : 'none'};
+`
+
+const IncorrectButton = styled.TouchableOpacity`
+    width: 100px;
+    height: 40px;
+    background-color: ${props => props.correct === false ? '#FF0000' : 'transparent'};
+    border-radius: 3px;
+    border: 2px solid #FF0000;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
 `
 
 const ControlText = styled.Text`
-    color: ${props => props.correct ? '#11DB00' : '#FF0000'};
+    color: ${props => props.correct ? '#000' : '#fff'};
     font-weight: bold;
+`
+
+const CorrectText = styled.Text`
+    color: ${props => props.correct ? '#fff': '#11DB00'};
+`
+
+const IncorrectText = styled.Text`
+    color: ${props => props.correct === false ? '#fff' : '#FF0000'};
 `
 
 const StyledText = styled.Text`

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { SafeAreaView, View, Text, ScrollView, TouchableOpacity} from 'react-native'
+import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, Alert} from 'react-native'
 import * as API from '../../data/_data'
 import QuizCard from './QuizCard'
 import { NavigationContainer } from '@react-navigation/native'
@@ -17,7 +17,7 @@ const Quiz = ({ route, navigation }) => {
         .then(res => {
             console.log(res)
             let quizSet = res.questions.map((card, index) => {
-                return { ...card, id: index, correct: null}
+                return { ...card, id: index, answered: false, correct: null}
             })
             setCards(quizSet)
         })
@@ -40,7 +40,7 @@ const Quiz = ({ route, navigation }) => {
     const setCardAnswer = (id, answer) => {
         let updatedCards = cards.map(card => {
             if (card.id === id) {
-                return { ...card, correct: answer }
+                return { ...card, answered: true, correct: answer }
             } else {
                 return card
             }
@@ -62,15 +62,22 @@ const Quiz = ({ route, navigation }) => {
     }
 
     const generateResults = () => {
-        let total = cards.length
-        let correct = cards.filter(card => card.correct).length
-        console.log('total ', total, 'correct ', correct)
-        navigation.navigate('Results', { total: total, correct: correct })
+        let remainingQuestions = cards.filter(card => !card.answered).length
+
+        if (remainingQuestions === 0) {
+            let total = cards.length
+            let correct = cards.filter(card => card.correct).length
+            console.log('total ', total, 'correct ', correct)
+            navigation.navigate('Results', { total: total, correct: correct })
+        } else {
+            Alert.alert('Warning!', 'Please answer all questions before continuing to your results.')
+        }
     }
     
     return (
         <>
         <Container>
+        <QuestionCounter><CounterText>questions remaining: {cards.filter(card => !card.answered).length} / {cards.length}</CounterText></QuestionCounter>
             {cards && cards.map((card, index) => {
                 if (activeCard === index) {
                     return (
@@ -109,11 +116,24 @@ const Container = styled.SafeAreaView`
     align-items: center;
 `
 
+const QuestionCounter = styled.View`
+    width: 100%;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+`
+
+const CounterText = styled.Text`
+    color: #fff;
+`
+
 const Controls = styled.View`
     width: 100%;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    margin: 10px 0;
 `
 
 const ControlButton = styled.TouchableOpacity`

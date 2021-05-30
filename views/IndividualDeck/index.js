@@ -24,8 +24,8 @@ const IndividualDeck = ({ route, navigation }) => {
                     <Text>{deck.questions.length} cards</Text>
                 </Header>
 
-                <ControlButton onPress={() => navigation.navigate('Add Question', { deckId: route.params.deckId })}><StyledText>Add Card</StyledText></ControlButton>
                 <ControlButton onPress={() => navigation.navigate('Quiz', { deckId: route.params.deckId })}><StyledText>Start Quiz</StyledText></ControlButton>
+                <ControlButton onPress={() => navigation.navigate('Add Question', { deckId: route.params.deckId })}><StyledText>Add Card</StyledText></ControlButton>
                 <TouchableOpacity onPress={() => API.deleteDeck(route.params.deckId).then((res) => navigation.navigate('Decks', { refresh: true }))}><Text style={{ color: 'red', margin: 5 }}>Delete Deck</Text></TouchableOpacity>
             </Container>
         )}
