@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 import { SafeAreaView, View, Text, TextInput } from 'react-native'
 import * as API from '../../data/_data'
 
-const NewQuestion = ({ route }) => {
+const NewQuestion = ({ route, navigation }) => {
     const [question, setQuestion] = React.useState('')
     const [answer, setAnswer] = React.useState('')
 
@@ -11,6 +11,7 @@ const NewQuestion = ({ route }) => {
         API.addCardToDeck({ id: route.params.deckId, question, answer })
         .then(res => {
             console.log(res)
+            navigation.navigate('Individual Deck', { refresh: true })
         })
         .catch(e => console.error(e))
     }

@@ -8,8 +8,10 @@ import { NavigationContainer } from '@react-navigation/native'
 const Quiz = ({ route, navigation }) => {
     const [activeCard, setActiveCard] = React.useState(0)
     const [cards, setCards] = React.useState([])
+    console.log('route params at quiz: ', route.params)
     
     React.useEffect(() => {
+        console.log('refresh: ', route.params.refresh)
         API.getDeck(route.params.deckId)
         .then(res => {
             console.log(res)
@@ -20,6 +22,19 @@ const Quiz = ({ route, navigation }) => {
         })
         .catch(e => console.error(e))
     }, [])
+
+    React.useEffect(() => {
+        setActiveCard(0)
+        API.getDeck(route.params.deckId)
+        .then(res => {
+            console.log(res)
+            let quizSet = res.questions.map((card, index) => {
+                return { ...card, id: index, correct: null}
+            })
+            setCards(quizSet)
+        })
+        .catch(e => console.error(e))
+    }, [route.params.refresh])
 
     const setCardAnswer = (id, answer) => {
         let updatedCards = cards.map(card => {

@@ -12,7 +12,7 @@ const IndividualDeck = ({ route, navigation }) => {
             setDeck(res)
         })
         .catch(e => console.error(e))
-    }, [])
+    }, [route.params])
 
     return (
         <>
