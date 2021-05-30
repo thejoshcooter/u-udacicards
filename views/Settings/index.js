@@ -32,6 +32,7 @@ const Settings = ({ navigation }) => {
                     text: 'Ok',
                     onPress: () => {
                         API.clearStorage()
+                        API.initStorage()
                         alertSuccess()
                     }
                 }

@@ -16,7 +16,7 @@ const Deck = ({ id, title, questions, navigation }) => {
 
 const Container = styled.TouchableOpacity`
     width: 80%;
-    height: 20%;
+    height: 200px;
     margin: 10px auto;
     border-radius: 3px;
     flex-direction: column;

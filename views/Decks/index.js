@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
+import { SafeAreaView, View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import * as API from '../../data/_data'
 import Deck from '../../components/Deck'
 
@@ -18,7 +18,7 @@ const Decks = ({ navigation, route }) => {
     
     return (
         <>
-        <SafeAreaView>
+        <ScrollView>
             {decks && decks.length !== 0 && decks.map(deck => (
                 <Deck 
                     key={deck.id}
@@ -28,7 +28,7 @@ const Decks = ({ navigation, route }) => {
                     navigation={navigation}
                 />
             ))}
-        </SafeAreaView>
+        </ScrollView>
         </>
     )
 }
