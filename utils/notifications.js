@@ -72,7 +72,7 @@ export const checkPerms = () => {
 
 export const checkScheduledNotifications = () => {
     PushNotificationIOS.getScheduledLocalNotifications((res) => {
-        console.log(res)
+        console.log('[CURRENT SCHEDULED NOTIFICATIONS]', res)
         let quantity = res.length
         Alert.alert('Scheduled Notifications', `You currently have ${quantity} scheduled notifications.`)
     })
@@ -85,9 +85,8 @@ export const clearScheduledNotifications = () => {
 
 export const scheduleNotification = async () => {
     PushNotificationIOS.getScheduledLocalNotifications((res) => {
-        console.log('[scheduled notifications]', res)
         if (res.length === 0) {
-            console.log('new reminder notification scheduled for: ', getNextReminderTime())
+            console.log('[NEXT NOTIFICATION REMINDER]: ', getNextReminderTime())
             PushNotificationIOS.addNotificationRequest({
                 id: `${generateReminderId()}`,
                 title: 'Daily quiz reminder!',
@@ -100,6 +99,5 @@ export const scheduleNotification = async () => {
 
 export const scheduleNextQuizReminder = () => {
     PushNotificationIOS.cancelAllLocalNotifications()
-    console.log('old reminder notifications cancelled')
     scheduleNotification()
 }

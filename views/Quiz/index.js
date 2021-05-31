@@ -9,13 +9,10 @@ import { ORANGE, PURPLE } from '../../utils/colors'
 const Quiz = ({ route, navigation }) => {
     const [activeCard, setActiveCard] = React.useState(0)
     const [cards, setCards] = React.useState([])
-    console.log('route params at quiz: ', route.params)
     
     React.useEffect(() => {
-        console.log('refresh: ', route.params.refresh)
         API.getDeck(route.params.deckId)
         .then(res => {
-            console.log(res)
             let quizSet = res.questions.map((card, index) => {
                 return { ...card, id: index, answered: false, correct: null}
             })
@@ -28,7 +25,6 @@ const Quiz = ({ route, navigation }) => {
         setActiveCard(0)
         API.getDeck(route.params.deckId)
         .then(res => {
-            console.log(res)
             let quizSet = res.questions.map((card, index) => {
                 return { ...card, id: index, correct: null}
             })
@@ -45,7 +41,6 @@ const Quiz = ({ route, navigation }) => {
                 return card
             }
         })
-        console.log('updated cards: ', updatedCards)
         setCards(updatedCards)
     }
 
@@ -67,7 +62,6 @@ const Quiz = ({ route, navigation }) => {
         if (remainingQuestions === 0) {
             let total = cards.length
             let correct = cards.filter(card => card.correct).length
-            console.log('total ', total, 'correct ', correct)
             navigation.navigate('Results', { total: total, correct: correct })
         } else {
             Alert.alert('Warning!', 'Please answer all questions before continuing to your results.')

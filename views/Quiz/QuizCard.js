@@ -9,11 +9,6 @@ const QuizCard = ({ id, question, answer, answered, correct, setCardAnswer }) =>
     return (
         <>
         <Container>
-            {/* <View>
-                {correct && <Text>You got it correct!</Text>}
-                {correct !== null && !correct && <Text>You got it incorrect.</Text>}
-            </View> */}
-
             <QuestionArea answer={reveal}>
                 {!reveal && <CardText>{question}</CardText>}
                 {reveal && <CardText>{answer}</CardText>}
@@ -79,18 +74,6 @@ const Controls = styled.View`
     width: 100%;
     min-height: 50px;
 `
-
-// const ControlButton = styled.TouchableOpacity`
-//     width: 100px;
-//     height: 40px;
-//     background-color: transparent;
-//     border-radius: 3px;
-//     border: 2px solid ${props => props.correct ? '#11DB00' : '#FF0000'};
-//     margin: 5px;
-//     justify-content: center;
-//     align-items: center;
-//     display: ${props => props.reveal ? 'flex' : 'none'};
-// `
 
 const CorrectButton = styled.TouchableOpacity`
     width: 100px;

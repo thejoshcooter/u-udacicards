@@ -5,7 +5,6 @@ import { ORANGE, PURPLE } from '../../utils/colors'
 import { scheduleNextQuizReminder } from '../../utils/notifications'
 
 const Results = ({ route, navigation }) => {
-    console.log('route params at results: ', route.params)
 
     React.useEffect(() => {
         scheduleNextQuizReminder()
