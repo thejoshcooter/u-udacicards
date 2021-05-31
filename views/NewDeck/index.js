@@ -1,21 +1,25 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native'
 import * as API from '../../data/_data'
 import { LIGHTORANGE, ORANGE, PURPLE } from '../../utils/colors'
+import { 
+    SafeAreaView, 
+    View, 
+    Text, 
+    TextInput, 
+    TouchableOpacity } from 'react-native'
 
 const NewDeck = ({ navigation }) => {
     const [title, setTitle] = React.useState('')
 
     const handleChange = (text) => {
         setTitle(text)
-        console.log(title)
     }
 
     const handleSubmit = () => {
         API.createDeck(title)
         .then(res => {
-            console.log(res)
+            setTitle('')
             navigation.navigate('Individual Deck', { deckId: res })
         })
         .catch(e => console.error(e))
