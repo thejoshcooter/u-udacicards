@@ -29,7 +29,7 @@ const Decks = ({ navigation, route }) => {
     return (
         <>
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-            {decks && decks.length !== 0 && decks.map(deck => (
+            {decks && decks.map(deck => (
                 <Deck 
                     key={deck.id}
                     id={deck.id}

@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   View,
-  Text
+  Text,
+  ActivityIndicator
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -17,21 +18,26 @@ import { getInitialAppPermissions, scheduleNotification } from './utils/notifica
 const Stack = createStackNavigator()
 
 const App = () => {
+
+  const [fetching, setFetching] = React.useState(true)
   
   React.useEffect(() => {
     API.initStorage()
     API.getDecks()
     .then(res => {
       console.log('[SERVER RES]', res)
+      setFetching(false)
     })
     .catch(e => console.error(e))
     getInitialAppPermissions()
-    scheduleNotification()
-  }, [])
+  }, [fetching])
   
   return (
     <>
-    <NavigationContainer>
+    {fetching && <ActivityIndicator size='large' />}
+
+    {!fetching && (
+      <NavigationContainer>
       <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name='Home' component={Home} />
         <Stack.Screen name='Individual Deck' component={IndividualDeck} />
@@ -40,6 +46,7 @@ const App = () => {
         <Stack.Screen name='Results' component={Results} />
       </Stack.Navigator>
     </NavigationContainer>
+    )}
     </>
   )
 }

@@ -27,6 +27,11 @@ export const getInitialAppPermissions = () => {
     PushNotificationIOS.checkPermissions(res => {
         if (!res.authorizationStatus > 0) {
             PushNotificationIOS.requestPermissions()
+            .then(res => {
+                console.log('promise res: ', res)
+                scheduleNotification()
+            })
+            .catch(e => console.error(e))
         }
     })
 }
