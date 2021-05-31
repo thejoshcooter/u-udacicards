@@ -11,7 +11,12 @@ const getLongDelayTime = () => {
 }
 
 const getNextReminderTime = () => {
-    return new Date(Date.now() + (60 * 60 * 24 * 1000))
+    let date = new Date()
+    date.setDate(date.getDate() + 1)
+    date.setHours(20)
+    date.setMinutes(0)
+
+    return date
 }
 
 const getNextTestTime = () => {
@@ -82,12 +87,12 @@ export const scheduleNotification = async () => {
     PushNotificationIOS.getScheduledLocalNotifications((res) => {
         console.log('[scheduled notifications]', res)
         if (res.length === 0) {
-            console.log('new reminder notification scheduled for: ', getNextTestTime())
+            console.log('new reminder notification scheduled for: ', getNextReminderTime())
             PushNotificationIOS.addNotificationRequest({
                 id: `${generateReminderId()}`,
                 title: 'Daily quiz reminder!',
                 body: 'Remember to take your daily quiz!',
-                fireDate: getNextTestTime()
+                fireDate: getNextReminderTime()
             })
         }
     })

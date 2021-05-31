@@ -30,6 +30,7 @@ const App = () => {
     })
     .catch(e => console.error(e))
     getInitialAppPermissions()
+    scheduleNotification()
   }, [fetching])
   
   return (
