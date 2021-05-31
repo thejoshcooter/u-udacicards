@@ -30,6 +30,7 @@
 		00E356EE1AD99517003FC87E /* udacicardsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = udacicardsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* udacicardsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = udacicardsTests.m; sourceTree = "<group>"; };
+		033ABC8C2663CD3D0051F710 /* udacicards.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = udacicards.entitlements; path = udacicards/udacicards.entitlements; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* udacicards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = udacicards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = udacicards/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = udacicards/AppDelegate.m; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		13B07FAE1A68108700A75B9A /* udacicards */ = {
 			isa = PBXGroup;
 			children = (
+				033ABC8C2663CD3D0051F710 /* udacicards.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -114,7 +116,6 @@
 				E725F143EE95F1C767AA3579 /* Pods-udacicards-udacicardsTests.debug.xcconfig */,
 				D4EF7975BA79B681E5D7677B /* Pods-udacicards-udacicardsTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -484,6 +485,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = udacicards/udacicards.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = udacicards/Info.plist;
@@ -510,6 +512,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = udacicards/udacicards.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = udacicards/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

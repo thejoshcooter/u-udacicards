@@ -1,71 +1,42 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { SafeAreaView, View, Text, TouchableOpacity, Alert } from 'react-native'
-import * as API from '../../data/_data'
 import { ORANGE } from '../../utils/colors'
+import { createStackNavigator } from '@react-navigation/stack'
+import Menu from './Menu'
+import Storage from './Storage'
+import Notifications from './Notifications/index'
+
+const SettingsStack = createStackNavigator()
 
 const Settings = ({ navigation }) => {
-    const alertSuccess = () => {
-        Alert.alert(
-            'Success!',
-            'App storage has been successfully cleared.',
-            [
-                {
-                    text: 'Return to Dashboard',
-                    onPress: () => {
-                        navigation.navigate('Decks', { refresh: true })
-                    }
-                }
-            ]
-        )
-    }
-    
-    const handleReset = () => {
-        Alert.alert(
-            'Warning!',
-            'Are you sure you want to clear all app storage?',
-            [
-                {
-                    text: 'Cancel'
-                },
-                {
-                    text: 'Ok',
-                    onPress: () => {
-                        API.clearStorage()
-                        API.initStorage()
-                        alertSuccess()
-                    }
-                }
-            ]
-            )
-    }
     
     return (
         <>
-        <Container>
-            <ResetButton onPress={() => handleReset()}><StyledText>Clear Storage</StyledText></ResetButton>
-        </Container>
+        <SettingsStack.Navigator initialRouteName='Menu'>
+            <SettingsStack.Screen name='Menu' component={Menu} />
+            <SettingsStack.Screen name='Storage' component={Storage} />
+            <SettingsStack.Screen name='Notifications' component={Notifications} />
+        </SettingsStack.Navigator>
         </>
     )
 }
 
 const Container = styled.SafeAreaView`
     flex: 1;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
 `
 
-const ResetButton = styled.TouchableOpacity`
-    width: 150px;
-    height: 50px;
-    border-radius: 3px;
-    background-color: ${ORANGE};
-    justify-content: center;
+const MenuItem = styled.View`
+    width: 100%;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
-`
-
-const StyledText = styled.Text`
-    color: #fff;
 `
 
 export default Settings
