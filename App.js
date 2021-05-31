@@ -11,6 +11,7 @@ import IndividualDeck from './views/IndividualDeck'
 import Quiz from './views/Quiz'
 import NewQuestion from './views/NewQuestion'
 import Results from './views/Results'
+import { getInitialAppPermissions, scheduleNotification } from './utils/notifications'
 
 // create navigation
 const Stack = createStackNavigator()
@@ -24,6 +25,8 @@ const App = () => {
       console.log('[SERVER RES]', res)
     })
     .catch(e => console.error(e))
+    getInitialAppPermissions()
+    scheduleNotification()
   }, [])
   
   return (

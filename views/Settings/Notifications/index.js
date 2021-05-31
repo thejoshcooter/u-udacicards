@@ -15,7 +15,7 @@ const Storage = ({ navigation }) => {
             <MenuItem onPress={() => notifs.checkPerms()}><Text>Check Permissions</Text></MenuItem>
             <MenuItem onPress={() => notifs.checkScheduledNotifications()}><Text>Check Scheduled Notifications</Text></MenuItem>
             <MenuItem onPress={() => notifs.clearScheduledNotifications()}><Text>Clear Scheduled Notifications</Text></MenuItem>
-            <MenuItem><Text>Schedule Reminder</Text></MenuItem>
+            <MenuItem onPress={() => notifs.scheduleNotification()}><Text>Schedule Reminder</Text></MenuItem>
         </Container>
         </>
     )

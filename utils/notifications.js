@@ -1,26 +1,53 @@
 import PushNotificationIOS from '@react-native-community/push-notification-ios'
-import { Alert } from 'react-native'
+import { Alert, AsyncStorage } from 'react-native'
+
+// helpers
+const getShortDelayTime = () => {
+    return new Date(Date.now() + (5 * 1000))
+}
+
+const getLongDelayTime = () => {
+    return new Date(Date.now() + (60 * 60 * 1000))
+}
+
+const getNextReminderTime = () => {
+    return new Date(Date.now() + (60 * 60 * 24 * 1000))
+}
+
+const getNextTestTime = () => {
+    return new Date(Date.now() + (60 * 1000))
+}
+
+const generateReminderId = () => {
+    return Math.round(Math.random() * 100000)
+}
+
+// notification api
+export const getInitialAppPermissions = () => {
+    PushNotificationIOS.checkPermissions(res => {
+        if (!res.authorizationStatus > 0) {
+            PushNotificationIOS.requestPermissions()
+        }
+    })
+}
+
 
 export const testNotification = () => {
     PushNotificationIOS.addNotificationRequest({
-        id: `${Math.random() * 1000}`,
-        title: 'Testing!',
-        body: 'You have successfully sent a test notification.'
+        id: '1',
+        title: 'Test Notification',
+        body: 'You have successfully tested a notification!',
+        fireDate: getShortDelayTime()
     })
 }
 
 export const testFutureNotification = () => {
     PushNotificationIOS.addNotificationRequest({
         id: `${Math.random() * 1000}`,
-        title: 'Testing',
-        body: 'Testing a future notification',
-        fireDate: new Date(Date.now() + (1000 * 1000))
+        title: 'Test Notification',
+        body: 'You have successfully tested a notification!',
+        fireDate: getLongDelayTime()
     })
-}
-
-export const removePerms = () => {
-    console.log('abandon perms')
-    PushNotificationIOS.abandonPermissions()
 }
 
 export const requestPerms = () => {
@@ -36,9 +63,33 @@ export const checkPerms = () => {
 export const checkScheduledNotifications = () => {
     PushNotificationIOS.getScheduledLocalNotifications((res) => {
         console.log(res)
+        let quantity = res.length
+        Alert.alert('Scheduled Notifications', `You currently have ${quantity} scheduled notifications.`)
     })
 }
 
 export const clearScheduledNotifications = () => {
     PushNotificationIOS.cancelAllLocalNotifications()
+    Alert.alert('Notifications Cleared', 'You have successfully cleared ALL pending notifications')
+}
+
+export const scheduleNotification = async () => {
+    PushNotificationIOS.getScheduledLocalNotifications((res) => {
+        console.log('[scheduled notifications]', res)
+        if (res.length === 0) {
+            console.log('new reminder notification scheduled for: ', getNextTestTime())
+            PushNotificationIOS.addNotificationRequest({
+                id: `${generateReminderId()}`,
+                title: 'Daily quiz reminder!',
+                body: 'Remember to take your daily quiz!',
+                fireDate: getNextTestTime()
+            })
+        }
+    })
+}
+
+export const scheduleNextQuizReminder = () => {
+    PushNotificationIOS.cancelAllLocalNotifications()
+    console.log('old reminder notifications cancelled')
+    scheduleNotification()
 }
